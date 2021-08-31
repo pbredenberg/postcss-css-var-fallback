@@ -6,16 +6,16 @@
 
 ```css
 .foo {
-    /* Input example */
-    color: var(--color, #4a6da7);
+   /* Input example */
+   color: var(--color, #4a6da7);
 }
 ```
 
 ```css
 .foo {
-  /* Output example */
-  color: #4a6da7;
-  color: var(--color, #4a6da7);
+   /* Output example */
+   color: #4a6da7;
+   color: var(--color, #4a6da7);
 }
 ```
 
