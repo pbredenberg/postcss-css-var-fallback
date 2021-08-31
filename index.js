@@ -1,27 +1,44 @@
-module.exports = (opts = { }) => {
+'use strict';
 
-  // Work with options here
+module.exports = () => {
 
-  console.log('What are my opts?', opts);
+   return {
+      postcssPlugin: 'postcss-var-fallback',
 
-  return {
-    postcssPlugin: 'postcss-var-fallback',
+      // Root (root) {
+      //   // Transform CSS AST here
+      //   console.log('Whats in root?', root);
+      // },
 
-    // Root (root) {
-    //   // Transform CSS AST here
-    //   console.log('Whats in root?', root);
-    // },
+      Root(root) {
+         //console.log('ROOT:', root);
+         root.walkDecls(decl => {
+            //console.log('DECL:', decl);
+            const regex = new RegExp(/var\((--[\w|-]+)(,\s?[#|\w|-]+)?\)/g);
 
-    Rule (decl) {
-      const getCSSVarValue = decl.nodes.find(node => {
-        return node.value.match(/var\(/i)
-      });
+            var getVarFallback = function(value) {
+               const insideParenRegEx = new RegExp(/\(([^)]+)\)/);
 
-      if (getCSSVarValue) {
-        console.log('Matching in rule?', getCSSVarValue);
-      }
+               const varParams = value.match(insideParenRegEx);
+               const params = varParams[1].split(',');
+               if (params[1]) {
+                  return params[1].trim(); // Return second (fallback) param
+               }
+            }
 
-    },
-  }
+            if (decl.value.match(regex)) {
+
+               const propValue = decl.prop;
+               const fallback = getVarFallback(decl.value);
+
+               if (fallback) {
+                  decl.cloneBefore({ prop: propValue, value: fallback })
+               }
+               //console.log('Prop value =', propValue);
+               //console.log('Fallback value =', fallback);
+            }
+         });
+      },
+   }
 }
 module.exports.postcss = true
