@@ -18,7 +18,7 @@ it('Inserts simple hex fallback', async () => {
   const expectedOuput = `
   a {
     color: #090;
-    color: var(--color, #89);
+    color: var(--color, #090);
   }
   `;
 
