@@ -14,7 +14,7 @@
   },
   "author": "Kevin Muncie <kevin@kmuncie.com>",
   "license": "MIT",
-  "repository": "kmuncie/postcss-var-fallback",
+  "repository": "kmuncie/postcss-css-var-fallback",
   "engines": {
     "node": ">=12.0.0"
   },
