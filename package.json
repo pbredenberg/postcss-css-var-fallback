@@ -1,5 +1,5 @@
 {
-  "name": "postcss-var-fallback",
+  "name": "@kmuncie/postcss-var-fallback",
   "version": "0.0.1",
   "description": "PostCSS plugin to insert fallbacks for CSS Custom Properties",
   "keywords": [
